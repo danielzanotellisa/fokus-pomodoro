@@ -2,9 +2,24 @@ import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 const pomodoro = [
-  {id: 'focus', initialValue: 25, image: require('../assets/images/pomodoro.png')},
-  {id: 'short', initialValue: 5, image: require('../assets/images/short.png')},
-  {id: 'long', initialValue: 15, image: require('../assets/images/long.png')},
+  {
+    id: 'focus',
+    initialValue: 25,
+    image: require('../assets/images/pomodoro.png'),
+    display: 'Foco'
+  },
+  {
+    id: 'short',
+    initialValue: 5,
+    image: require('../assets/images/short.png'),
+    display: 'Pausa curta'
+  },
+  {
+    id: 'long',
+    initialValue: 15,
+    image: require('../assets/images/long.png'),
+    display: 'Pausa longa'
+  },
 ]
 
 export default function Index() {
@@ -18,15 +33,16 @@ export default function Index() {
       <Image source={timerType.image}/>
       <View style={styles.actions}>
         <View style={styles.actionsButtons}>
-          <Pressable style={styles.actionButtonActive} onPress={() => {setTimerType(pomodoro[0])}}>
-            <Text style={styles.actionButtonTextActive}>Foco</Text>
+          {pomodoro.map(p => (
+            
+          <Pressable
+            key={p.id}
+            style={timerType.id === p.id ? styles.actionButtonActive : styles.actionButton}
+            onPress={() => {setTimerType(p)}}
+          >
+            <Text style={timerType.id === p.id ? styles.actionButtonTextActive : styles.actionButtonText}>{p.display}</Text>
           </Pressable>
-          <Pressable style={styles.actionButton} onPress={() => {setTimerType(pomodoro[1])}}>
-            <Text style={styles.actionButtonText}>Pausa curta</Text>
-          </Pressable>
-          <Pressable style={styles.actionButton} onPress={() => {setTimerType(pomodoro[2])}}>
-            <Text style={styles.actionButtonText}>Pausa longa</Text>
-          </Pressable>
+          ))}
         </View>
         <Text style={styles.timer}>{new Date(timerType.initialValue * 1000).toLocaleTimeString('pt-BR', {minute: '2-digit', second: '2-digit'})}</Text>
         <Pressable style={styles.button}>
