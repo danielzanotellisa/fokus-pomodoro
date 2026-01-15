@@ -1,5 +1,11 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
+const pomodoro = [
+  {id: 'focus', initialValue: '25:00'},
+  {id: 'short', initialValue: '05:00'},
+  {id: 'long', initialValue: '15:00'},
+]
+
 export default function Index() {
   return (
     <View
