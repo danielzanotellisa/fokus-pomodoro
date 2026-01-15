@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { ActionButton } from "../components/ActionButton";
+import { FokusButton } from "../components/FokusButton";
+import { Timer } from "../components/Timer";
 
 const pomodoro = [
   {
@@ -24,8 +27,17 @@ const pomodoro = [
 
 export default function Index() {
   
-  const [timerType, setTimerType] = useState(pomodoro[0])
+  const [timerType, setTimerType] = useState(pomodoro[0]);
+  const [isRunning, setIsRunning] = useState(false);
   
+  const handleActionSwitch = (item) => {
+    if(timerType.id === item.id) {
+      return
+    }
+    
+    setIsRunning(false)
+    setTimerType(item)
+  }
   return (
     <View
       style={styles.container}
@@ -34,20 +46,16 @@ export default function Index() {
       <View style={styles.actions}>
         <View style={styles.actionsButtons}>
           {pomodoro.map(p => (
-            
-          <Pressable
-            key={p.id}
-            style={timerType.id === p.id ? styles.actionButtonActive : styles.actionButton}
-            onPress={() => {setTimerType(p)}}
-          >
-            <Text style={timerType.id === p.id ? styles.actionButtonTextActive : styles.actionButtonText}>{p.display}</Text>
-          </Pressable>
+            <ActionButton 
+              key={p.id}
+              active={timerType.id === p.id}
+              onPress={() => handleActionSwitch(p)}
+              display={p.display} 
+            />
           ))}
         </View>
-        <Text style={styles.timer}>{new Date(timerType.initialValue * 1000).toLocaleTimeString('pt-BR', {minute: '2-digit', second: '2-digit'})}</Text>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Começar</Text>
-        </Pressable>
+        <Timer totalSeconds={timerType.initialValue}/>
+        <FokusButton display={isRunning ? 'Pausar' : 'Começar'} onPress={() => {setIsRunning(!isRunning)}}/>
       </View>
       <View style={styles.footer}>
         <Text style={styles.footerText}>Projeto fictício e sem fins comerciais.</Text>
@@ -79,26 +87,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   
-  timer: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
-    fontSize: 54,
-  },
-  
-  button: {
-    backgroundColor: "#B872FF",
-    padding: 8,
-    width: "100%",
-    alignItems: "center",
-    borderRadius: 32,
-  },
-  
-  buttonText: {
-    fontWeight: "bold",
-    color: "#021123",
-    fontSize: 18,
-  },
-  
   footer: {
     width: "80%",
   },
@@ -116,26 +104,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%"
   },
-  
-  actionButtonActive: {
-    backgroundColor: "#144480",
-    borderRadius: 8,
-    padding: 8
-  },
-  
-  actionButton: {
-    
-  },
-  
-  actionButtonTextActive: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 12.5,
-  },
-  
-  actionButtonText: {
-    color: "#FFF",
-    fontSize: 12.5,
-    fontWeight: "300"
-  }
 })
