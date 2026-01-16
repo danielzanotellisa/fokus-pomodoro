@@ -65,7 +65,7 @@ export default function Index() {
           clear()
           return timerType.initialValue
         }
-        return oldState - 1;
+        return oldState - 0.016;
       })
     }, 1000)
     timerRef.current = id
