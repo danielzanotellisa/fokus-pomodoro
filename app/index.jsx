@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { ActionButton } from "../components/ActionButton";
 import { FokusButton } from "../components/FokusButton";
@@ -27,16 +27,48 @@ const pomodoro = [
 
 export default function Index() {
   
+  const [seconds, setSeconds] = useState(pomodoro[0].initialValue);
   const [timerType, setTimerType] = useState(pomodoro[0]);
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] =  useState(false);
+  const timerRef = useRef(null);
   
-  const handleActionSwitch = (item) => {
-    if(timerType.id === item.id) {
+  
+  const clear = () => {
+    if (timerRef.current !== null) {
+      clearInterval(timerRef.current)
+      timerRef.current = null
+      setIsRunning(false);
+    }
+    
+  }
+  
+  const toogleTimerType = (newTimerType) => {
+    setTimerType(newTimerType)
+    setSeconds(newTimerType.initialValue)
+    clear()
+  }
+  
+  
+  
+  const toogleTimer = () => {
+    if (timerRef.current) {
+      clear()
       return
     }
     
-    setIsRunning(false)
-    setTimerType(item)
+    setIsRunning(true);
+    
+    const id = setInterval(() => {
+      console.log(seconds)
+      setSeconds(oldState => {
+        if (oldState === 0) {
+          clear()
+          return timerType.initialValue
+        }
+        return oldState - 1;
+      })
+    }, 1000)
+    timerRef.current = id
   }
   return (
     <View
@@ -49,13 +81,13 @@ export default function Index() {
             <ActionButton 
               key={p.id}
               active={timerType.id === p.id}
-              onPress={() => handleActionSwitch(p)}
+              onPress={() => toogleTimerType(p)}
               display={p.display} 
             />
           ))}
         </View>
-        <Timer totalSeconds={timerType.initialValue}/>
-        <FokusButton display={isRunning ? 'Pausar' : 'Começar'} onPress={() => {setIsRunning(!isRunning)}}/>
+        <Timer totalSeconds={seconds}/>
+        <FokusButton display={isRunning ? 'Pausar' : 'Começar'} onPress={toogleTimer}/>
       </View>
       <View style={styles.footer}>
         <Text style={styles.footerText}>Projeto fictício e sem fins comerciais.</Text>
