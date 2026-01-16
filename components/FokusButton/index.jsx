@@ -1,8 +1,9 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
-export const FokusButton = ({onPress, display}) => {
+export const FokusButton = ({onPress, display, icon}) => {
     return (
         <Pressable style={styles.button} onPress={onPress}>
+					{icon}
           <Text style={styles.buttonText}>{display}</Text>
         </Pressable>
     )
@@ -10,11 +11,15 @@ export const FokusButton = ({onPress, display}) => {
 
 const styles = StyleSheet.create({
     button: {
+			flexDirection: "row",
+			alignContent: "center",
+			justifyContent: "center",
       backgroundColor: "#B872FF",
       padding: 8,
       width: "100%",
       alignItems: "center",
       borderRadius: 32,
+			gap: 8,
     },
       
     buttonText: {
