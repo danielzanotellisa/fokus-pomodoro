@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { ActionButton } from "../components/ActionButton";
 import { FokusButton } from "../components/FokusButton";
+import { Pause, Play } from "../components/Icons";
 import { Timer } from "../components/Timer";
 
 const pomodoro = [
@@ -86,7 +87,7 @@ export default function Index() {
           ))}
         </View>
         <Timer totalSeconds={seconds}/>
-        <FokusButton display={isRunning ? 'Pausar' : 'Começar'} onPress={toogleTimer}/>
+        <FokusButton icon={isRunning ? <Pause/> : <Play/>} display={isRunning ? 'Pausar' : 'Começar'} onPress={toogleTimer}/>
       </View>
       <View style={styles.footer}>
         <Text style={styles.footerText}>Projeto fictício e sem fins comerciais.</Text>
