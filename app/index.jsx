@@ -59,7 +59,6 @@ export default function Index() {
     setIsRunning(true);
     
     const id = setInterval(() => {
-      console.log(seconds)
       setSeconds(oldState => {
         if (oldState === 0) {
           clear()
