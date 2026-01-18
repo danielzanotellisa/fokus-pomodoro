@@ -1,9 +1,11 @@
-import { Stack } from "expo-router"
+import { Drawer } from 'expo-router/drawer';
 
-export default function StackLayout() {
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+export default function Layout() {
     return (
-        <Stack> 
-            <Stack.Screen name="pomodoro" options={{headerShown: false}}/>
-        </Stack>
+        <GestureHandlerRootView style={{flex: 1}}>
+           <Drawer/>
+        </GestureHandlerRootView>
     )
 }
