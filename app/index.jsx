@@ -12,7 +12,7 @@ export default function Index() {
       </View>
       <View style={styles.action}>
         <Image source={require('../assets/images/initial.png')}/>
-        <Link href={{pathname: "/pomodoro"}} asChild>
+        <Link href={{pathname: "/pomodoro"}} replace asChild>
           <FokusButton display={'Quero iniciar!'}/>
         </Link>
       </View>
