@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { ActionButton } from "../components/ActionButton";
 import { FokusButton } from "../components/FokusButton";
 import { Pause, Play } from "../components/Icons";
@@ -27,6 +28,7 @@ const pomodoro = [
 ]
 
 export default function Pomodoro() {
+  
   
   const [seconds, setSeconds] = useState(pomodoro[0].initialValue);
   const [timerType, setTimerType] = useState(pomodoro[0]);
@@ -71,10 +73,10 @@ export default function Pomodoro() {
     timerRef.current = id
   }
   return (
-    <View
+    <SafeAreaView
       style={styles.container}
     >
-      <Image source={timerType.image}/>
+      <Image style={{maxHeight: 335, maxWidth:335}} source={timerType.image}/>
       <View style={styles.actions}>
         <View style={styles.actionsButtons}>
           {pomodoro.map(p => (
@@ -94,7 +96,7 @@ export default function Pomodoro() {
         <Text style={styles.footerText}>Desenvolvido por Daniel Zanotelli.</Text>
         
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#021123",
-    gap: 40
+    gap: 40,
   },
   
   actions: {
