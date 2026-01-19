@@ -1,10 +1,11 @@
 import { Link } from "expo-router";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { FokusButton } from "../components/FokusButton";
 
 export default function Index() {
   return (
-    <View style={styles.container}>
+    <SafeAreaProvider style={styles.container}>
       <Image source={require('../assets/images/logo.png')}/>
       <View>
         <Text style={styles.text}>Otimize sua produtividade,</Text>
@@ -20,7 +21,7 @@ export default function Index() {
         <Text style={styles.footerText}>Projeto fictício e sem fins comerciais.</Text>
         <Text style={styles.footerText}>Desenvolvido por Daniel Zanotelli.</Text>
       </View>
-    </View>
+    </SafeAreaProvider>
   )
 }
 
