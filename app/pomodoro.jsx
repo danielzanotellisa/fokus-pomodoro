@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ActionButton } from "../components/ActionButton";
 import { FokusButton } from "../components/FokusButton";
+import Footer from "../components/Footer";
 import { Pause, Play } from "../components/Icons";
 import { Timer } from "../components/Timer";
 
@@ -91,11 +92,7 @@ export default function Pomodoro() {
         <Timer totalSeconds={seconds}/>
         <FokusButton icon={isRunning ? <Pause/> : <Play/>} display={isRunning ? 'Pausar' : 'Começar'} onPress={toogleTimer}/>
       </View>
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Projeto fictício e sem fins comerciais.</Text>
-        <Text style={styles.footerText}>Desenvolvido por Daniel Zanotelli.</Text>
-        
-      </View>
+      <Footer/>
     </SafeAreaView>
   );
 }
@@ -119,16 +116,6 @@ const styles = StyleSheet.create({
     borderColor: "#144480",
     alignItems: "center",
     alignContent: "center",
-  },
-  
-  footer: {
-    width: "80%",
-  },
-  
-  footerText: {
-    color: "#98A0A8",
-    textAlign: "center",
-    fontSize: 12.5
   },
   
   actionsButtons: {
